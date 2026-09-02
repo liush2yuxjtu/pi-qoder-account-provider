@@ -1,0 +1,4 @@
+{"capturedAt":"2026-09-02T09:55:00Z","channel":"github","metric":"stars","value":0,"url":"https://github.com/liush2yuxjtu/pi-qoder-account-provider","caveat":"Initial release snapshot; stars are not users."}
+{"capturedAt":"2026-09-02T09:55:00Z","channel":"github","metric":"forks","value":0,"url":"https://github.com/liush2yuxjtu/pi-qoder-account-provider","caveat":"Initial release snapshot; forks are not users."}
+{"capturedAt":"2026-09-02T09:55:00Z","channel":"npm","metric":"versions","value":1,"url":"https://www.npmjs.com/package/pi-qoder-account-provider","caveat":"Version count is not download or user count."}
+{"capturedAt":"2026-09-02T09:55:00Z","channel":"pi-gallery","metric":"listing","value":1,"url":"https://pi.dev/packages/pi-qoder-account-provider","caveat":"Listing presence is not install count."}

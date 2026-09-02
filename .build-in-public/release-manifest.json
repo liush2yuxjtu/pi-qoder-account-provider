@@ -2,23 +2,28 @@
   "package": "pi-qoder-account-provider",
   "version": "0.1.0",
   "license": "MIT",
+  "publishedAt": "2026-09-02T09:42:11.148Z",
   "channels": {
     "github": {
       "repository": "https://github.com/liush2yuxjtu/pi-qoder-account-provider",
-      "status": "prepared"
+      "status": "published-and-verified",
+      "ci": "https://github.com/liush2yuxjtu/pi-qoder-account-provider/actions/runs/33604680549"
     },
     "npm": {
       "url": "https://www.npmjs.com/package/pi-qoder-account-provider",
-      "status": "prepared"
+      "status": "published-and-verified",
+      "maintainer": "nyn5255",
+      "integrity": "sha512-B/4zks8rjJa9MDaT6MYDR9UWCA7SFDLvP1WL2ywm2VNiro03JPLKdBnIrtTtVdxSdMPanXSnrqof/DRRQ5MxzA=="
     },
     "piGallery": {
       "url": "https://pi.dev/packages/pi-qoder-account-provider",
-      "status": "prepared"
+      "status": "published-and-verified"
     }
   },
   "artifact": {
     "filename": "pi-qoder-account-provider-0.1.0.tgz",
     "sha256": "081600a66be0097048c1fc76f065a3034d6e44a86fab57abcbf5b94313c65a23",
+    "sha1Compatibility": "7e89195b1b9871d5567ee6a258c26f80d6a048c2",
     "files": 4,
     "piModelsDiscovered": 17
   },
@@ -26,9 +31,11 @@
     "unitTests": "pass",
     "typecheck": "pass",
     "npmPack": "pass",
-    "cleanPiPackageLoad": "pass",
-    "liveQoderText": "pass",
+    "cleanNpmPiInstall": "pass",
+    "liveNpmQoderText": "pass: QODER_NPM_OK",
     "liveQoderToolBridge": "pass",
+    "publicGitHubCI": "pass",
+    "trustedPublisher": "configured: GitHub Actions OIDC publish.yml",
     "eve": "skipped: not an Eve project"
   }
 }
