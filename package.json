@@ -1,0 +1,55 @@
+{
+  "name": "pi-qoder-account-provider",
+  "version": "0.1.0",
+  "description": "Use Qoder account models, including Qwen3.8-Max, as a Pi provider through the official Qoder Agent SDK.",
+  "type": "module",
+  "license": "MIT",
+  "author": "liush2yuxjtu",
+  "homepage": "https://github.com/liush2yuxjtu/pi-qoder-account-provider#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liush2yuxjtu/pi-qoder-account-provider.git"
+  },
+  "bugs": {
+    "url": "https://github.com/liush2yuxjtu/pi-qoder-account-provider/issues"
+  },
+  "keywords": [
+    "pi-package",
+    "pi",
+    "qoder",
+    "qwen",
+    "qwen3.8-max",
+    "provider",
+    "coding-agent"
+  ],
+  "files": [
+    "extensions",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --import tsx test/bridge.test.mjs",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run test && npm run typecheck && npm pack --dry-run"
+  },
+  "dependencies": {
+    "@qoder-ai/qoder-agent-sdk": "1.0.32",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.2"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-ai": "*",
+    "@earendil-works/pi-coding-agent": "*"
+  },
+  "pi": {
+    "extensions": [
+      "./extensions/index.ts"
+    ]
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

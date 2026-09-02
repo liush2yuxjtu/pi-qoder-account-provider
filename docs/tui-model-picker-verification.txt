@@ -1,0 +1,32 @@
+[Skill conflicts]
+  "design-critique" collision:
+    ✓ auto (user) ~/.pi/agent/skills/design-critique/SKILL.md
+    ✗ ~/.pi/agent/skills/knowledge-work-design/skills/design-critique/SKILL.md (skipped)
+  "week-report-image" collision:
+    ✓ auto (user) ~/.pi/agent/skills/week-report-image/SKILL.md
+    ✗ ~/.pi/agent/skills/week-report-image-workspace/iteration-3/eval-column-position/with_skill/outputs/SKILL.md (skipped)
+    ✗ ~/.pi/agent/skills/week-report-image-workspace/iteration-3/eval-layout-copy/old_skill/outputs/SKILL.md (skipped)
+    ✗ ~/.pi/agent/skills/week-report-image-workspace/iteration-3/eval-layout-copy/with_skill/outputs/SKILL.md (skipped)
+    ✗ ~/.pi/agent/skills/week-report-image-workspace/iteration-3/eval-production-labels/with_skill/outputs/SKILL.md (skipped)
+    ✗ ~/.pi/agent/skills/week-report-image-workspace/iteration-3/eval-top-status/with_skill/outputs/SKILL.md (skipped)
+    ✗ ~/.pi/agent/skills/week-report-image-workspace/skill-snapshot-iteration-1/SKILL.md (skipped)
+    ✗ ~/.pi/agent/skills/week-report-image-workspace/skill-snapshot-iteration-3/SKILL.md (skipped)
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Only showing models from configured providers. Use /login to add providers.
+
+> Qwen3.8-Max
+
+→ Qwen3.8-Max [qoder]
+
+  Model Name: Qwen3.8-Max (Qoder account)
+
+  Model catalogs refreshed.
+
+  Enter to select · Ctrl+S to set as default · Esc to cancel
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+/private/tmp/pi-qoder-picker-test
+$0.000 (sub) 0.0%/1.1M (auto)                                                                           (openai-codex) gpt-5.6-luna • medium
+○ caveman: FULL

@@ -1,0 +1,36 @@
+[Skill conflicts]
+  "design-critique" collision:
+    ✓ auto (user) ~/.pi/agent/skills/design-critique/SKILL.md
+    ✗ ~/.pi/agent/skills/knowledge-work-design/skills/design-critique/SKILL.md (skipped)
+  "week-report-image" collision:
+    ✓ auto (user) ~/.pi/agent/skills/week-report-image/SKILL.md
+    ✗ ~/.pi/agent/skills/week-report-image-workspace/iteration-3/eval-column-position/with_skill/outputs/SKILL.md (skipped)
+    ✗ ~/.pi/agent/skills/week-report-image-workspace/iteration-3/eval-layout-copy/old_skill/outputs/SKILL.md (skipped)
+    ✗ ~/.pi/agent/skills/week-report-image-workspace/iteration-3/eval-layout-copy/with_skill/outputs/SKILL.md (skipped)
+    ✗ ~/.pi/agent/skills/week-report-image-workspace/iteration-3/eval-production-labels/with_skill/outputs/SKILL.md (skipped)
+    ✗ ~/.pi/agent/skills/week-report-image-workspace/iteration-3/eval-top-status/with_skill/outputs/SKILL.md (skipped)
+    ✗ ~/.pi/agent/skills/week-report-image-workspace/skill-snapshot-iteration-1/SKILL.md (skipped)
+    ✗ ~/.pi/agent/skills/week-report-image-workspace/skill-snapshot-iteration-3/SKILL.md (skipped)
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+ Package Updates Available
+ Package updates are available. Run pi update --extensions
+ Packages:
+ - pi-subagents
+ - pi-crew
+ - pi-workspace-history
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+ Reply with exactly: QODER_TUI_FINAL_OK
+
+
+ QODER_TUI_FINAL_OK
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+/private/tmp/pi-qoder-live-tui
+0.0%/1.0M (auto)                                                                                          (qoder) Qwen3.8-Max • thinking off
+○ caveman: FULL channels: 7

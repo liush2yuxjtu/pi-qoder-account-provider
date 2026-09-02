@@ -1,0 +1,283 @@
+$ qodercli --version
+1.1.40
+
+$ qodercli --help
+Usage: qodercli [options] [command] [query...]
+
+Qoder CLI - Defaults to interactive mode. Use -p/--print for non-interactive
+output.
+
+Arguments:
+  query                                Initial prompt.
+
+Options:
+  -d, --debug                          Run in debug mode (default: false)
+  -m, --model <model>                  Model for the current session. Default
+                                       and New Models use model name; Custom
+                                       uses modelID
+  --reasoning-effort <level>           Set reasoning effort level
+  --thinking <mode>                    Set thinking mode (auto, adaptive,
+                                       enabled, or disabled)
+  --thinking-budget <tokens>           Set a fixed thinking token budget
+                                       (implies --thinking enabled)
+  --context-window <size>              Explicit context window for supported
+                                       models
+  --list-models                        List available models for the current
+                                       user
+  -i, --prompt-interactive <text>      Execute prompt and continue in
+                                       interactive mode
+  -w, --cwd <dir>                      Change working directory before startup
+  --config-dir <dir>                   Use a custom user-level config root for
+                                       this run
+  --worktree [name]                    Start in a new git worktree
+  --permission-mode <mode>             Set the permission mode (choices:
+                                       default, accept_edits,
+                                       bypass_permissions, dont_ask, auto)
+  --dangerously-skip-permissions       Bypass all permission checks
+  --allowed-mcp-server-names <name>    Allowed MCP server names
+  --tools <tools...>                   Restrict available built-in tools ("" to
+                                       disable all, "default" for all; use -p or
+                                       -- to separate from query)
+  --allowed-tools <tool>               Tools to allow
+  --disallowed-tools <tool>            Tools to deny
+  --attachment <file>                  Attach files to the initial prompt
+  --plugin-dir <dir>                   Plugin directories to load
+  -c, --continue                       Continue the most recent session
+  --fork-session                       Create a new session from a resumed
+                                       conversation
+  -r, --resume [id]                    Resume a previous session by identifier
+  -n, --name <name>                    Set a display name for this session
+  --session-id <id>                    Use a specific session ID
+  --remote [task]                      Create a cloud remote session and print
+                                       its access URL
+  --remote-session <id>                Cold-load and attach to an existing
+                                       remote session
+  --teleport <id>                      Load and attach to a remote session
+  --remote-control <id>                Run as a headless remote-control worker
+  --list-sessions                      List available sessions and exit
+  --delete-session <index>             Delete a session by index number
+  --add-dir <dir>                      Additional directories to include in the
+                                       workspace
+  -o, --output-format <format>         The format of the CLI output
+  --input-format <format>              The format of the CLI input
+  --max-output-tokens <size>           Set maximum model output tokens
+  -p, --print                          Print response and exit (non-interactive)
+  --no-session-persistence             Disable session persistence - sessions
+                                       will not be saved to disk and cannot be
+                                       resumed (only works with --print)
+  --agent <name>                       Agent for the current session
+  --agents <json>                      JSON object defining custom agents
+  --append-system-prompt <text>        Append to the default system prompt
+  --system-prompt <text>               System prompt for the session
+  --output-style <style>               Output style for this session
+  --max-model-request-retries <count>  Maximum retries for Qoder and External
+                                       Provider model requests
+  --mcp-config <config>                Load MCP servers from JSON file(s) or
+                                       inline JSON
+  --strict-mcp-config                  Only use MCP servers from --mcp-config
+                                       (default: false)
+  --setting-sources <source>           Setting sources to load (user, project,
+                                       local)
+  --settings <json>                    Load additional settings from a JSON file
+                                       path or inline JSON string
+  -v, --version                        output the version number
+  -h, --help                           display help for command
+
+Commands:
+  mcp                                  Configure and manage MCP servers
+  plugins|plugin                       Manage plugins
+  skills|skill                         Manage agent skills.
+  hooks|hook                           Manage hooks
+  agents|agent [options]               Manage agents
+  login                                Sign in to your account
+  commit [options]                     Generate a commit message and commit
+                                       changes
+  rollback [options]                   Rollback to a previous version
+  update [options]                     Update to the latest version
+  remote-control [options]             Start the remote-control daemon
+  status [options]                     Show session status
+  security                             Scan source code for security issues
+  feedback [options]                   Submit feedback
+  wiki [args...]                       Generate wiki documentation for projects
+
+$ qodercli login --help
+Usage: qodercli login [options]
+
+Sign in to your account
+
+Options:
+  -h, --help  display help for command
+
+$ qodercli mcp --help
+Usage: qodercli mcp [options] [command]
+
+Configure and manage MCP servers
+
+Options:
+  -h, --help                                     display help for command
+
+Commands:
+  add [options] <name> [commandOrUrl] [args...]  Add a server
+  add-json [options] <name> <json>               Add a server from a JSON config string
+  remove [options] <name>                        Remove a server
+  get [options] <name>                           Get details about an MCP server. Prints a summary of the final effective configuration by default.
+  list                                           List all configured MCP servers
+  enable [options] <name>                        Enable an MCP server
+  disable [options] <name>                       Disable an MCP server
+  reset-project-choices                          Reset all approved and rejected project-scoped (.mcp.json) servers within this project
+
+$ qodercli plugins --help
+Usage: qodercli plugins|plugin [options] [command]
+
+Manage plugins
+
+Options:
+  -h, --help                           display help for command
+
+Commands:
+  list [options]                       List installed plugins.
+  validate [options] <path>            Validates a plugin from a local directory
+                                       or manifest.
+  install|i [options] <plugin>         Install a plugin from available
+                                       marketplaces, a remote HTTPS .zip URL, or
+                                       a local directory path.
+  uninstall|remove [options] <plugin>  Uninstall a plugin.
+  enable [options] <plugin>            Enable a disabled plugin.
+  disable [options] [plugin]           Disable an enabled plugin.
+  update [options] <plugin>            Update a plugin to the latest version
+                                       from its marketplace.
+  marketplace|mp                       Manage plugin marketplaces.
+
+$ qodercli skills --help
+Usage: qodercli skills|skill [options] [command]
+
+Manage agent skills.
+
+Options:
+  -h, --help                  display help for command
+
+Commands:
+  list [options]              Lists discovered agent skills.
+  enable <name>               Enables an agent skill.
+  disable [options] <name>    Disables an agent skill.
+  install [options] <source>  Installs an agent skill from a git repository URL,
+                              a remote HTTPS .zip URL, a local path, or a local
+                              .skill/.zip archive.
+  link [options] <path>       Links an agent skill from a local path. Updates to
+                              the source will be reflected immediately.
+  uninstall [options] <name>  Uninstalls an agent skill by name.
+
+$ qodercli hooks --help
+Usage: qodercli hooks|hook [options] [command]
+
+Manage hooks
+
+Options:
+  -h, --help         display help for command
+
+Commands:
+  migrate [options]  Migrate hooks from Claude Code to Qoder CLI
+
+$ qodercli agents --help
+Usage: qodercli agents|agent [options] [command]
+
+Manage agents
+
+Options:
+  --setting-sources <sources...>  Comma-separated list of setting sources to
+                                  filter (user, project, local)
+  -h, --help                      display help for command
+
+Commands:
+  list [options]                  Lists discovered agents.
+
+$ qodercli commit --help
+Usage: qodercli commit [options]
+
+Generate a commit message and commit changes
+
+Options:
+  -m, --message <message>      Commit message (required without --hook)
+  -w, --workspace <workspace>  Working directory (defaults to current directory)
+  --hook                       Hook mode: skip git commit, only verify AI stats
+                               for the latest commit
+  -h, --help                   display help for command
+
+$ qodercli rollback --help
+Usage: qodercli rollback [options]
+
+Rollback to a previous version
+
+Options:
+  --to <version>  Target version to roll back to. Defaults to the safe rollback
+                  version.
+  -h, --help      display help for command
+
+$ qodercli update --help
+Usage: qodercli update [options]
+
+Update to the latest version
+
+Options:
+  --check     Only check if an update is available without installing it.
+  -h, --help  display help for command
+
+$ qodercli remote-control --help
+Usage: qodercli remote-control [options]
+
+Start the remote-control daemon
+
+Options:
+  --name <name>       Environment display name.
+  --spawn <mode>      How the server schedules sessions. (choices: "same-dir",
+                      "worktree", default: "same-dir")
+  --capacity <count>  Maximum concurrent sessions (default 32). (default: "32")
+  --directory <dir>   Directory to report and use as cwd for spawned workers.
+  --verbose           Stream child worker output. (default: false)
+  -h, --help          display help for command
+
+$ qodercli status --help
+Usage: qodercli status [options]
+
+Show session status
+
+Options:
+  -o, --output <format>  Output format (text, json) (default: "text")
+  -h, --help             display help for command
+
+$ qodercli security --help
+Usage: qodercli security [options] [command]
+
+Scan source code for security issues
+
+Options:
+  -h, --help                 display help for command
+
+Commands:
+  scan [options] [paths...]  Scan a repository or selected paths for security
+                             issues
+
+$ qodercli feedback --help
+Usage: qodercli feedback [options]
+
+Submit feedback
+
+Options:
+  -c, --content <content>           Feedback description (max 2000 characters)
+  -s, --session-id <sessionId>      Session id to associate the feedback with
+  --workdir <workdir>               Working directory whose state should be
+                                    collected
+  --email <email>                   Contact email (optional when logged in)
+  --images <images...>              Screenshot file paths to attach (max 5;
+                                    png/jpg/jpeg/gif/webp)
+  --caller-version <callerVersion>  External application version to report
+                                    (defaults to qodercli version)
+  --ide-type <ideType>              Business-type identifier reported as
+                                    ide_type (e.g. CLI, QoderWork, Quest).
+                                    Defaults to CLI.
+  --json                            Emit a single JSON line on stdout instead of
+                                    plain text
+  -h, --help                        display help for command
+
+$ qodercli wiki --help
+External command wiki requires authentication, but qodercli is not authenticated.

@@ -1,0 +1,14 @@
+Pi Qoder tool bridge live verification
+
+Workspace: /tmp/pi-qoder-tool-test
+Model: qoder/Qwen3.8-Max
+Prompt: Use the read tool to read marker.txt. Then reply with exactly the file content and nothing else.
+Expected file content: QODER_TOOL_BRIDGE_OK
+
+Observed flow:
+1. Qoder emitted Pi tool call: read({"path":"marker.txt"})
+2. Pi built-in read returned: QODER_TOOL_BRIDGE_OK
+3. Qoder follow-up response returned: QODER_TOOL_BRIDGE_OK
+4. Pi agent_end stopReason: stop
+
+Verdict: PASS
