@@ -22,7 +22,8 @@
   },
   "artifact": {
     "filename": "pi-qoder-account-provider-0.1.0.tgz",
-    "sha1": "7e89195b1b9871d5567ee6a258c26f80d6a048c2",
+    "sha256": "081600a66be0097048c1fc76f065a3034d6e44a86fab57abcbf5b94313c65a23",
+    "sha1Compatibility": "7e89195b1b9871d5567ee6a258c26f80d6a048c2",
     "files": 4,
     "piModelsDiscovered": 17
   },

@@ -12,7 +12,7 @@
 ## Verification
 
 - Public GitHub CI passed.
-- npm registry metadata and integrity resolved publicly.
+- npm registry artifact `pi-qoder-account-provider-0.1.0.tgz` verified with SHA-256 `081600a66be0097048c1fc76f065a3034d6e44a86fab57abcbf5b94313c65a23`.
 - Clean `pi install npm:pi-qoder-account-provider@0.1.0` succeeded.
 - Clean install exposed 17 Qoder models.
 - `qoder/Qwen3.8-Max` returned `QODER_NPM_OK` through the installed npm package.
@@ -31,7 +31,7 @@ qodercli login
 pi install npm:pi-qoder-account-provider
 ```
 
-Then run `/login qoder` and select `qoder/Qwen3.8-Max` through `/model`.
+Restart Pi or run `/reload`, then run `/login qoder` and select `qoder/Qwen3.8-Max` through `/model`.
 
 ## Current evidence snapshot
 
