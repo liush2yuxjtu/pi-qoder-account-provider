@@ -32,16 +32,19 @@ None. Homebrew, IDE stores, MCP registries, and skill catalogs do not fit a Pi p
 ## Authentication, review, signing, and fee gates
 
 - GitHub CLI authenticated as `liush2yuxjtu`
-- npm publish uses private `dot-pi` Actions secret `NPM_TOKEN`; local encrypted token currently fails registry authentication
+- npm maintainer verified as `nyn5255`; security key / Touch ID 2FA enabled
+- Initial release used npm Web CLI authentication
+- Future releases use GitHub Actions Trusted Publisher/OIDC through public `.github/workflows/publish.yml`
 - No known fees or manual marketplace review
 
 ## Release waves and rollback
 
-1. Merge source snapshot and private publish workflow into private `dot-pi`.
-2. Create public GitHub repository from package subtree and verify CI.
-3. Publish npm package from private workflow.
-4. Verify npm clean install and Pi Gallery listing.
-5. Roll back by npm deprecation and corrective patch; never unpublish a depended-on release.
+1. Merge source snapshot into private `dot-pi`. Completed.
+2. Create public GitHub repository and verify CI. Completed.
+3. Publish `0.1.0` with npm Web CLI authentication. Completed.
+4. Verify npm clean install and Pi Gallery listing. Completed.
+5. Use public GitHub OIDC workflow for future releases. Configured.
+6. Roll back by npm deprecation and corrective patch; never unpublish a depended-on release.
 
 ## Resume-safe reporting plan
 
