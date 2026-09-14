@@ -46,7 +46,7 @@
   },
   "pi": {
     "extensions": [
-      "./extensions/index.ts"
+      "./extensions/usage-entry.ts"
     ]
   },
   "engines": {
