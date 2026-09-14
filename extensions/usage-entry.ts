@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import type { ExtensionAPI } from '@earendil-works/pi-coding-agent';
-import qoderProviderExtension from './index.ts';
-import { createUsageFunnel } from './usage-funnel.ts';
+import qoderProviderExtension from './index';
+import { createUsageFunnel } from './usage-funnel';
 
 const version = String(JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')).version);
 
