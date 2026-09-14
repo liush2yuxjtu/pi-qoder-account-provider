@@ -1,6 +1,8 @@
 name: Publish
 
 on:
+  push:
+    branches: [main]
   release:
     types: [published]
 
@@ -10,6 +12,7 @@ permissions:
 
 jobs:
   publish:
+    if: github.repository == 'liush2yuxjtu/pi-qoder-account-provider'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,4 +24,12 @@ jobs:
       - run: npm install --global npm@latest
       - run: npm ci
       - run: npm run check
-      - run: npm publish --access public --provenance
+      - name: Publish target version once
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          test "$VERSION" = "0.1.1"
+          if npm view "pi-qoder-account-provider@$VERSION" version >/dev/null 2>&1; then
+            echo "pi-qoder-account-provider@$VERSION already exists; skipping"
+            exit 0
+          fi
+          npm publish --access public --provenance
