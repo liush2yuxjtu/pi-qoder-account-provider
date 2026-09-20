@@ -17,6 +17,27 @@ import {
 const PACKAGE = "pi-qoder-account-provider";
 const version = String(JSON.parse(readFileSync(new URL("../package.json", import.meta.url), "utf8")).version);
 
+export function wrapStreamForTelemetry(
+  streamFn: any,
+  getFunnel: () => UsageFunnel | undefined,
+) {
+  if (typeof streamFn !== "function") return streamFn;
+  return (...args: any[]) => {
+    void getFunnel()?.activate();
+    const stream = streamFn(...args);
+    if (stream && typeof stream.push === "function") {
+      const push = stream.push.bind(stream);
+      stream.push = (event: any) => {
+        // streamQoder emits "done" only after a successful SDK result.
+        // Abort/model failures emit "error", so they do not count first_success.
+        if (event?.type === "done") void getFunnel()?.success();
+        return push(event);
+      };
+    }
+    return stream;
+  };
+}
+
 export default async function usageInstrumentedQoderProvider(pi: ExtensionAPI): Promise<void> {
   let consent: Consent = await resolveConsent();
   let funnel: UsageFunnel | undefined =
@@ -74,24 +95,6 @@ export default async function usageInstrumentedQoderProvider(pi: ExtensionAPI): 
     },
   });
 
-  const wrapStream = (streamFn: any) => {
-    if (typeof streamFn !== "function") return streamFn;
-    return (...args: any[]) => {
-      void funnel?.activate();
-      const stream = streamFn(...args);
-      if (stream && typeof stream.push === "function") {
-        const push = stream.push.bind(stream);
-        stream.push = (event: any) => {
-          // streamQoder only emits "done" after a successful SDK result.
-          // Abort/model failures emit "error", so they do not count first_success.
-          if (event?.type === "done") void funnel?.success();
-          return push(event);
-        };
-      }
-      return stream;
-    };
-  };
-
   const instrumented = new Proxy(pi, {
     get(target, property, receiver) {
       if (property !== "registerProvider") return Reflect.get(target, property, receiver);
@@ -101,8 +104,8 @@ export default async function usageInstrumentedQoderProvider(pi: ExtensionAPI): 
           ...provider,
           api: {
             ...api,
-            stream: wrapStream(api.stream),
-            streamSimple: wrapStream(api.streamSimple),
+            stream: wrapStreamForTelemetry(api.stream, () => funnel),
+            streamSimple: wrapStreamForTelemetry(api.streamSimple, () => funnel),
           },
         } : provider;
         return target.registerProvider(wrapped);
