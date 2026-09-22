@@ -75,32 +75,56 @@ function compactSchema(tool: Tool): Record<string, unknown> {
   };
 }
 
+function systemPromptText(context: Context): string {
+  if (context.systemPrompt) return context.systemPrompt;
+  const sysMsg = context.messages?.find((m) => (m as any).role === "system") as any;
+  if (!sysMsg) return "";
+  if (typeof sysMsg.content === "string") return sysMsg.content;
+  if (Array.isArray(sysMsg.content)) {
+    return sysMsg.content
+      .map((part: any) => (typeof part === "string" ? part : part.text ?? ""))
+      .filter(Boolean)
+      .join("\n");
+  }
+  return "";
+}
+
 export function serializeContext(context: Context): string {
-  const history = context.messages.map((message) => {
-    if (message.role === "user") {
-      const content = typeof message.content === "string"
-        ? message.content
-        : message.content.map((part) => part.type === "text" ? part.text : `[image:${part.mimeType}]`).join("\n");
-      return { role: "user", content };
-    }
-    if (message.role === "assistant") {
+  const history = context.messages
+    .filter((message) => (message as any).role !== "system")
+    .map((message) => {
+      if (message.role === "user") {
+        const content = typeof message.content === "string"
+          ? message.content
+          : Array.isArray(message.content)
+            ? message.content.map((part) => part.type === "text" ? part.text : `[image:${part.mimeType}]`).join("\n")
+            : String(message.content ?? "");
+        return { role: "user", content };
+      }
+      if (message.role === "assistant") {
+        return {
+          role: "assistant",
+          content: Array.isArray(message.content)
+            ? message.content.map((part) => {
+                if (part.type === "text") return { type: "text", text: part.text };
+                if (part.type === "thinking") return { type: "thinking", text: part.thinking };
+                return { type: "tool_call", id: part.id, name: part.name, arguments: part.arguments };
+              })
+            : [{ type: "text", text: String(message.content ?? "") }],
+        };
+      }
+      const toolContent = Array.isArray(message.content)
+        ? message.content.map((part) => part.type === "text" ? part.text : `[image:${part.mimeType}]`).join("\n")
+        : String(message.content ?? "");
+
       return {
-        role: "assistant",
-        content: message.content.map((part) => {
-          if (part.type === "text") return { type: "text", text: part.text };
-          if (part.type === "thinking") return { type: "thinking", text: part.thinking };
-          return { type: "tool_call", id: part.id, name: part.name, arguments: part.arguments };
-        }),
+        role: "tool_result",
+        toolCallId: (message as any).toolCallId,
+        toolName: (message as any).toolName,
+        isError: Boolean((message as any).isError),
+        content: toolContent,
       };
-    }
-    return {
-      role: "tool_result",
-      toolCallId: message.toolCallId,
-      toolName: message.toolName,
-      isError: message.isError,
-      content: message.content.map((part) => part.type === "text" ? part.text : `[image:${part.mimeType}]`).join("\n"),
-    };
-  });
+    });
   return JSON.stringify(history);
 }
 
@@ -129,9 +153,11 @@ export function parseToolCalls(text: string): ParsedToolCall[] | null {
   }
 }
 
-function bridgeSystemPrompt(context: Context): string {
+export function bridgeSystemPrompt(context: Context): string {
   const tools = (context.tools ?? []).map(compactSchema);
-  return `${context.systemPrompt ?? ""}\n\n` +
+  const prompt = systemPromptText(context);
+  const promptPrefix = prompt ? `${prompt}\n\n` : "";
+  return `${promptPrefix}` +
     `QODER-PI BRIDGE CONTRACT\n` +
     `You are the model backend inside Pi. Qoder runtime tools are disabled. Pi owns all tool execution and approval.\n` +
     `When a tool is needed, output only one or more exact envelopes, with no prose or Markdown:\n` +
