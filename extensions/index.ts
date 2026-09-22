@@ -18,6 +18,9 @@ import {
   type Tool,
 } from "@earendil-works/pi-ai";
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import { getQoderCliExecCommand, resolveQoderCliPath } from "./cli-resolver.js";
+
+export { getQoderCliExecCommand, resolveQoderCliPath } from "./cli-resolver.js";
 
 const PROVIDER_ID = "qoder";
 const API_ID = "qoder-agent-sdk" as Api;
@@ -194,6 +197,10 @@ export function streamQoder(
     try {
       const resolvedKey = options?.apiKey;
       const auth = resolvedKey && resolvedKey !== LOCAL_AUTH ? accessToken(resolvedKey) : qodercliAuth();
+      const cliPath = resolveQoderCliPath();
+      if (cliPath && !process.env.QODERCLI_PATH) {
+        process.env.QODERCLI_PATH = cliPath;
+      }
       q = query({
         prompt: `PI_CONVERSATION_JSON=${serializeContext(context)}`,
         options: {
@@ -213,6 +220,7 @@ export function streamQoder(
           },
           persistSession: false,
           abortController: controller,
+          ...(cliPath ? { pathToQoderCLIExecutable: cliPath } : {}),
         },
       });
 
@@ -270,6 +278,11 @@ export function streamQoder(
 }
 
 export default function qoderProviderExtension(pi: ExtensionAPI): void {
+  const detectedCli = resolveQoderCliPath();
+  if (detectedCli && !process.env.QODERCLI_PATH) {
+    process.env.QODERCLI_PATH = detectedCli;
+  }
+
   const provider = createProvider({
     id: PROVIDER_ID,
     name: "Qoder Account",
@@ -315,7 +328,8 @@ export default function qoderProviderExtension(pi: ExtensionAPI): void {
   pi.registerCommand("qoder-status", {
     description: "Show Qoder CLI authentication and installed version",
     handler: async (_args, ctx) => {
-      const result = await pi.exec("qodercli", ["status"], { timeout: 15_000 });
+      const { command, extraArgs } = getQoderCliExecCommand();
+      const result = await pi.exec(command, [...extraArgs, "status"], { timeout: 15_000 });
       ctx.ui.notify((result.stdout || result.stderr || "No output").trim(), result.code === 0 ? "info" : "warning");
     },
   });
