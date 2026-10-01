@@ -1,6 +1,6 @@
 {
   "name": "pi-qoder-account-provider",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Use Qoder account models, including Qwen3.8-Max, as a Pi provider through the official Qoder Agent SDK.",
   "type": "module",
   "license": "MIT",
@@ -28,12 +28,12 @@
     "LICENSE"
   ],
   "scripts": {
-    "test": "node --import tsx test/bridge.test.mjs",
+    "test": "node --import tsx test/bridge.test.mjs && node --import tsx test/telemetry.test.mjs",
     "typecheck": "tsc --noEmit",
     "check": "npm run test && npm run typecheck && npm pack --dry-run"
   },
   "dependencies": {
-    "@nyn5255/telemetry": "^0.1.1",
+    "@nyn5255/telemetry": "^0.1.3",
     "@qoder-ai/qoder-agent-sdk": "1.0.32",
     "zod": "^4.3.6"
   },

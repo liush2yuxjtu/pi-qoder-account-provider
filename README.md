@@ -35,6 +35,12 @@ Select model:
 
 Choose `qoder/Qwen3.8-Max`.
 
+## Optional usage telemetry
+
+Anonymous usage telemetry is **off by default**. Run `/qoder-telemetry on` to see and confirm the collector address, exact field list, data that is never sent, purpose, and the 180-day retention window before enabling anything. Use `/qoder-telemetry status` to inspect the current state and `/qoder-telemetry off` to revoke consent immediately. `DO_NOT_TRACK=1` and `PI_TELEMETRY_DISABLED=1` always override consent. `PI_TELEMETRY_DEBUG=1` prints the exact wire payload without sending it or consuming telemetry state.
+
+The funnel records install only after consent, activation/weekly activity only when the Qoder provider is actually invoked, and first success only after a successful Qoder SDK result. It never sends prompts, conversation history, tool schemas/results, Qoder auth data or PATs, model output, paths, repository names, usernames/emails, or IP addresses. The collector is `https://telemetry-peach.vercel.app/api/events`; pseudonymous rows are deleted after 180 days. The collector schema itself stores no IP address, though the hosting platform may retain short-lived technical request logs outside this package.
+
 ## Models
 
 The package registers the current Qoder account catalog observed during release, including:
