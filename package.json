@@ -28,7 +28,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "test": "node --import tsx test/bridge.test.mjs",
+    "test": "node --import tsx test/bridge.test.mjs && node --import tsx test/cli-resolver.test.mjs",
     "typecheck": "tsc --noEmit",
     "check": "npm run test && npm run typecheck && npm pack --dry-run"
   },
